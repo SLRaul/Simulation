@@ -1,12 +1,17 @@
  
 library(liqueueR)
 
+# dados de entrada
 taxa_reposicao <- 0.1
 taxa_chegada_cli <- 4
+
+# Dados de início
 tam_estoque = 100 #quantidade estoque
 li = 10 #limitante inferior p fazer reposição
 ls = 100 #limitante superior 
 Q = ls - tam_estoque
+
+# relógio 
 relogio <- 0
 LEF <- PriorityQueue$new()
 x <- 0 #quantidade do pedido
