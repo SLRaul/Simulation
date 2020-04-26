@@ -64,6 +64,7 @@ aareg(Surv(time, status) ~ trt + celltype +
 
 # # # # estimando por meio de floresta aleatória # # #
 # modo data science de modelar evento de tempo
+# com o pacote ranger
 
 rfm <- ranger(Surv(time, status) ~ trt + celltype + 
                 karno + diagtime + age + prior, data = veteran_partitioned,
@@ -94,10 +95,12 @@ for (n in sample(c(2:dim(veteran_partitioned)[1]), 20)){
   lines(rfm$unique.death.times, rfm$survival[n,], type = "l", col = cols[n])
 }
 lines(death_times, avg_prob, lwd = 2)
-legend(500, 0.7, legend = c('Average = black'))
+legend("topright", legend = c('Average = black'))
 
 #gerando o rank com as variáveis
 rank <- data.frame(sort(rfm$variable.importance, 4, decreasing = T))
 colnames(rank) <- c("Importancia"); rank
+
+
 
 # fonte: https://rviews.rstudio.com/2017/09/25/survival-analysis-with-r/
