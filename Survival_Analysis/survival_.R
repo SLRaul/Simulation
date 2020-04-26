@@ -101,6 +101,30 @@ legend("topright", legend = c('Average = black'))
 rank <- data.frame(sort(rfm$variable.importance, 4, decreasing = T))
 colnames(rank) <- c("Importancia"); rank
 
+#computando  Harrell's c-index
+rfm$prediction.error
 
+# um ponto a ser levantado é de que o uso de floresta aleatória no contexte de
+# dados de sobreviência pode se tornardesafiador por conta da variável tempo.
+# porem o uso de floresta aleatória seria mais recomendado quando se tem uma 
+# grande base de dados.
+
+# comparando os tres métodos utilizados graficamente:
+
+kmi <- rep("KM",length(km_ajustado$time))
+km_df <- data.frame(km_ajustado$time,km_ajustado$surv,kmi)
+names(km_df) <- c("Time","Surv","Model")
+
+coxi <- rep("Cox",length(cox_fit$time))
+cox_df <- data.frame(cox_fit$time,cox_fit$surv,coxi)
+names(cox_df) <- c("Time","Surv","Model")
+
+rfi <- rep("RF",length(rfm$unique.death.times))
+rf_df <- data.frame(rfm$unique.death.times,avg_prob,rfi)
+names(rf_df) <- c("Time","Surv","Model")
+
+plot_df <- rbind(km_df,cox_df,rf_df)
+
+ggplot(plot_df, aes(x = Time, y = Surv, color = Model)) + geom_line()
 
 # fonte: https://rviews.rstudio.com/2017/09/25/survival-analysis-with-r/
