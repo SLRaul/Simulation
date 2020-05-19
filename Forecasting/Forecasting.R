@@ -24,7 +24,7 @@ ggseasonplot(a10, polar = T)
 # gráficos de sub séries
 ggsubseriesplot(a10) + ylab("em milhares") + xlab("Meses") +
   ggtitle("Gráfico de subsérie temporal das vendas de anti-diabético")
-# a linha horizontal indica a média, esse tipo de gráfico pode revelar  udanças sazonais
+# a linha horizontal indica a média, esse tipo de gráfico pode revelar  mudanças sazonais
 
 # gráfico de dispersão
 data("elecdemand")
@@ -107,10 +107,92 @@ head(tute1)
 # GPD = produto interno bruto 
 # todos ajustados pela inflação
 # b
-tute1 <- ts(tute1[,-1], start = 1981, frequency = 4) # transformando em st e removendo as datas
+tute1_ts <- ts(tute1[,-1], start = 1981, frequency = 4) # transformando em st e removendo as datas
 # c
-autoplot(tute1, facets = T) # stde cada variável separadas
-autoplot(tute1, facets = F)
+autoplot(tute1_ts, facets = T) # stde cada variável separadas
+autoplot(tute1_ts, facets = F)
 # possível correlação positiva entre  sales e AdBudget
 # possível correlação negativa entre gdp e as demais
+## 3
+# a
+retail <- readxl::read_excel("~/R_Diretorio/Forecast/retail.xlsx", skip = 1) 
+# venda das de diversos tipos de loja e alguns estados
+head(retail)
+# b
+retail__ts <- ts(retail[,'A3349398A'], start = c(1982,4), frequency = 12)
+# c
+autoplot(retail__ts)
+# mostra tendencia e sazonalidade
+ggseasonplot(retail__ts)
+# mostra um aumento em dezembro e queda em fev
+ggsubseriesplot(retail__ts)
+gglagplot(window(retail__ts))
+# em todos os lags existe uma correlação linear forte
+ggAcf(retail__ts, lag.max= 100)
+# mostra que existe uma tendência bem forte uma leve sazonalidade
+
+## 4
+?bicoal # produção anual de carvão no eua 1920-1968
+?chicken # preço da galinha em dollar 1924-1993
+?dole # total mensal de seguro desemprego na austrália 01/1965-06/1992
+?usdeaths # mortes mensais acidentais no EUA 1973-1978
+?lynx # numeros anual de lynx capturadas 1821-1934
+?goog # Preços das ações do google 25/02/2013-13/02/2017
+?writing # venda de papel na frança 01/1963-12/1972
+?fancy # vendas mensais de souvenir no cais de um resorte em Queensland
+?a10 # venda mensal de remédios para diabets na austrália 07/91-06/2008
+?h02 # venda de corticoide mensal na austrália 07/1991-06/2008
+
+autoplot(bicoal) + ylab("Quantidade produzida") + xlab("Anos") +
+  ggtitle("Produção anual de carvão no EUA 1920-1968")
+
+autoplot(chicken) + ylab("Preço em dollar") + xlab("Anos") +
+  ggtitle("Série histórica do preço da galinha em dollar 1924-1993")
+
+autoplot(dole) + ylab("Quantidade de pedidos") + xlab("Anos") +
+  ggtitle("Quantidade de pedidos desempregos durante 01/1965-06/1992 na Austrália")
+
+autoplot(usdeaths) + ylab("Quantidade de mortes") + xlab("Anos") +
+  ggtitle("Quantidade de mortes acidentais no EUA 1973-1978")
+
+autoplot(lynx) + ylab("Quantidade capturadas") + xlab("Anos") +
+  ggtitle("Quantidade delynnx capturadas durante 1821-1934")
+
+autoplot(goog) + ylab("Preço em dollar") + xlab("Anos") +
+  ggtitle("Série histórica do preço das ações do Google em dollar durante 25/02/2013-13/02/2017")
+
+autoplot(writing) + ylab("Quantidade em milhares") + xlab("anos") +
+  ggtitle("Quantidade de papeis vendidos na França durante 01/1963-12/1972")
+
+autoplot(fancy) + ylab("Quantidade vendida") + xlab("Anos") +
+  ggtitle("Vendas de souvenir do Resort Queensland")
+
+autoplot(a10) + ylab("Quantidade vendida") + xlab("Anos") +
+  ggtitle("Série historica de vendas de remédios para diabetes na Austrália 07/91-06/2008")
+
+autoplot(h02) + ylab("Quantidade vendida") + xlab("Anos") +
+  ggtitle("Série historica de vendas de corticoides na Austrália 07/1991-06/2008")
+
+## 5
+gridExtra::grid.arrange(
+  ggseasonplot(writing, year.labels = T),
+  ggsubseriesplot(writing)
+)
+# Queda significativa em jul e ago, e uma recuperação em set 
+# a queda é exatamente no perio de férias
+gridExtra::grid.arrange(
+  ggseasonplot(fancy, year.labels = T),
+  ggsubseriesplot(fancy)
+)
+# maior venda em dez, pode estar associado as férias de natal
+gridExtra::grid.arrange(
+  ggseasonplot(a10, year.labels = T),
+  ggsubseriesplot(a10)
+)
+# leve aumente em jan e "estavel no resto do ano
+gridExtra::grid.arrange(
+  ggseasonplot(h02, year.labels = T),
+  ggsubseriesplot(h02)
+)
+# queda acentuada em fev e vai recuperando ao longo do ano
 
