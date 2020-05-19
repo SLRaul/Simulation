@@ -53,3 +53,64 @@ data("ausbeer")
 gglagplot(window(ausbeer, start= 1992))
 # no gráfico pode-se observar correlações positivas nos lags 4 e 8
 # e correlações negativas nos lags 2 e 6
+
+# auto correlação
+ggAcf(beer) #gráfico de auto correlação #autocorrelation function
+# auto correlação  dos dados iniciados em 92
+ggAcf(window(ausbeer, start=1992)) + ggtitle("Consumo de cerveja desde 1992") +
+  ylab("Correlação") 
+# consumo de energia na Austrália
+# apartir do anos 80
+ggAcf(window(elec, start=1980), lag.max = 48)
+autoplot(window(elec, start=1980))
+# apartir de 1956
+ggAcf(elec, lag.max = 48)
+autoplot(elec)
+# os gáficos de autocorrelação indicam tendência e sazonalidade,
+# visto que observa-se uma diminuição da autocorrelação e picos de auto correlação 
+
+# White noise - ruido branco
+# Serie temporal que não mostra correlação é chamada de WN
+# um ruido branco é dado por x ~ N(0,1) independentes
+# por conta disso o gráfico de correlações deve ser práximo de zero
+# que as correlações esteja dentro do liminte de confiança de 95%, dado por 2/sqrt(tamanho_ts)
+# exemplo de WN
+set.seed(2019)
+gridExtra::grid.arrange(
+  autoplot(ts(rnorm(50))) + ggtitle("Exememplo de WN em ST"),
+  ggAcf(ts(rnorm(50))) + ggtitle("Exememplo de WN no gráfico de autocoorelação")
+)
+# no exe acima o limite é = 2/sqrt(50) = -ou+ 0.28
+
+#exercícios
+## 1
+# a
+help("gas") # Produção mensal de gas na autrália
+help("woolyrnq") # Produção trimestral de de fios de lã na Austrália
+help("gold") # preço diário do ouro em dollar de 1/1985 -3/89
+# b
+help("frequency")
+# refere a frequencia anual dos dados
+frequency(gas) # 12
+frequency(woolyrnq) # 4
+frequency(gold) # 1
+# c
+which.max(gold) # outlier da ST desejada
+# 770
+
+## 2
+# a
+tute1 <-  readr::read_csv("~/R_Diretorio/Forecast/tute1.csv")
+head(tute1)
+# sales = vendas trimestrais de uma empresa pequena de 1981-2005
+# AdBudget = gasto com publicidade
+# GPD = produto interno bruto 
+# todos ajustados pela inflação
+# b
+tute1 <- ts(tute1[,-1], start = 1981, frequency = 4) # transformando em st e removendo as datas
+# c
+autoplot(tute1, facets = T) # stde cada variável separadas
+autoplot(tute1, facets = F)
+# possível correlação positiva entre  sales e AdBudget
+# possível correlação negativa entre gdp e as demais
+
