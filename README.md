@@ -1,5 +1,7 @@
 # College projects
 
+Esse repositório tem como objetivo divulgar algumas das análises e trabalhos aprendidos na faculdade para ajudar pessoas que estejam aprendendo a fazer análises utilizando o software R. Nesses scripts, foram utilizados alguns dos pacotes mais usados e recomendados para as análises apresentadas.  
+
 ## Simulation
 Trabalhos de simulação por eventos feitos durante a cadeira de simulação estoscástica. O software utilizado foi o R utilizando o pacote liqueueR. 
 
