@@ -4,7 +4,10 @@ library(fpp2)
 library(forecast)
 library(ggplot2)
 
-# Cap 2; gráficos de séries temporais
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+############## Cap 2; gráficos de séries temporais ###########
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
 # Exemplo dedados e a sua visualização 
 data("melsyd")
 autoplot(melsyd[,"Economy.Class"]) + ggtitle("Classe econômica Sydney-Melborne") +
@@ -196,3 +199,84 @@ gridExtra::grid.arrange(
 )
 # queda acentuada em fev e vai recuperando ao longo do ano
 
+## 6
+autoplot(BJsales) # indica tendência
+autoplot(usdeaths) # indica sazonalidade
+autoplot(bricksq) # indica sazonalidade e tendência
+autoplot(sunspotarea) # indica sazonalidade
+autoplot(gasoline) # indica sazonalidade e tendência
+
+ggseasonplot(BJsales) # Data are not seasonal
+ggseasonplot(usdeaths) # picos no mê de julho
+ggseasonplot(bricksq) # indica um crescimento no Q3
+ggseasonplot(sunspotarea) # Data are not seasonal
+ggseasonplot(gasoline) # queda nas semanas4-7 e pico 33-37
+
+ggsubseriesplot((BJsales))
+ggsubseriesplot(usdeaths) # mais indícios de sazonalidade
+ggsubseriesplot(bricksq) # indícios de tendências
+ggsubseriesplot(sunspotarea)
+ggsubseriesplot(gasoline)
+
+gglagplot(BJsales) # observa-se em todos os lags oa tempos iniciais e finais são correlacionados
+gglagplot(usdeaths) # lags 6, 7, 8 correlação negativa e lag 12 positiva
+gglagplot(bricksq) # todos os lags 4-9 tem correlação positiva
+gglagplot(sunspotarea) # lags 4, 5 e 6 parecem indicar correlção negativa
+gglagplot(gasoline) # lags 1, 2 e 3 indicam correlação positiva
+
+ggAcf(BJsales, lag.max= 98) # indício de tendencia
+ggAcf(usdeaths, lag.max= 98) # indício de sazonalidade
+ggAcf(bricksq, lag.max= 98) # indício de tendência
+ggAcf(sunspotarea, lag.max= 98) # # indício de sazonalidade
+ggAcf(gasoline, lag.max= 198) # indício de tendência
+
+## 7
+arrivals
+
+autoplot(arrivals, facets = T)
+autoplot(arrivals)
+
+ggseasonplot(arrivals[,1]) + ggtitle("Japan arrivels")
+ggseasonplot(arrivals[,2]) + ggtitle("NZ arrivels")
+ggseasonplot(arrivals[,1]) + ggtitle("UK arrivels")
+ggseasonplot(arrivals[,1]) + ggtitle("US arrivels")
+# exeto a NZ todos os demais paises registam um queda no segundo semestre
+
+ggsubseriesplot(arrivals[,1]) + ggtitle("Japan arrivels")
+ggsubseriesplot(arrivals[,2]) + ggtitle("NZ arrivels")
+ggsubseriesplot(arrivals[,1]) + ggtitle("UK arrivels")
+ggsubseriesplot(arrivals[,1]) + ggtitle("US arrivels")
+# existe indicativos de que existe sazonalidade, em que o segundo trimestre tem uma queda
+
+## 8
+# 2-d; 3-a; 1-b; 4-c
+
+## 9
+?pigs #Produção de porcos no UK
+mypigs <- window(pigs, start=1990)
+gridExtra::grid.arrange(
+  autoplot(mypigs),
+  ggAcf(mypigs)
+)
+# há um forte indício de que a produção de porcos nao seja autocorrelacionada
+# assim se caracterisando como um ruido branco
+
+## 10
+?dj #Dow-Jones index on 251 trading days ending 26 Aug 1994.
+ddj_ <- diff(dj)
+gridExtra::grid.arrange(
+  autoplot(dj),
+  autoplot(ddj_)
+)
+
+gridExtra::grid.arrange(
+  ggAcf(dj),
+  ggAcf(ddj_)
+)
+# sim com "centralização" a st virou um ruido branco
+
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+############ Cap 2; gráficos de séries temporais ##############
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+# # # https://otexts.com/fpp2/graphics-exercises.html
