@@ -276,7 +276,7 @@ gridExtra::grid.arrange(
 # sim com "centralização" a st virou um ruido branco
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-############ Cap 2; gráficos de séries temporais ##############
+############ Cap 3 ferramentas de forecast ##############
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
 # # # https://otexts.com/fpp2/graphics-exercises.html
