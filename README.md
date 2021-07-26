@@ -15,3 +15,6 @@ Apresentação e comparação dos métodos de Kaplan-Meier, Box cox e floresta a
 
 ## Data_Mining - Mineração de dados
 Compilação de trabalhos realizados durante a cadeira de mineração de dados (mais complementos) dos principais algoritmos de aprendizadado de máquina (machine learning) utilizados/apresentados em mineração de dados. Os arquivos estão separados por algoritmo e foram realizados utilizando a linguagem python por meio do jupyter-notebook. 
+
+## DS_with_Python
+Aplicação, em python, dos conceitos de data science do livro "Python for Data Science".
