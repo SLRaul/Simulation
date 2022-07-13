@@ -1,4 +1,4 @@
-# College projects
+# Traning Projects
 
 Esse repositório tem como objetivo divulgar algumas das análises e trabalhos aprendidos na faculdade para ajudar pessoas que estejam aprendendo a fazer análises utilizando o software R e Python. Nesses scripts, foram utilizados alguns dos pacotes mais usados e recomendados para as análises apresentadas.  
 
@@ -18,3 +18,6 @@ Compilação de trabalhos realizados durante a cadeira de mineração de dados (
 
 ## DS_with_Python
 Aplicação, em python, dos conceitos de data science do livro "Python for Data Science".
+
+## TensorFlow Learning
+Treinamento relacionados ao uso da ferramenta tensorflow para aplicação de modelos de deep learning e AI.
