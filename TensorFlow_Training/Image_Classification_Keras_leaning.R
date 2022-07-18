@@ -101,7 +101,7 @@ cat('Teste de acurácia:', score[2])
 ## Fazendo predições
 predicao <- modelo %>% predict(test_images)
 
-# a predição é a 'confiança' do modelo na correspondência do rótulo
+# a predição e a 'confiança' do modelo na correspondência do rótulo
 predicao[1,]
 which.max(predicao[1,])
 
